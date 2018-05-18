@@ -5,7 +5,7 @@ require "lazop_api_client/version"
 
 require 'rest-client'
 require 'json'
-require 'OpenSSL'
+require 'openssl'
 require 'cgi'
 require 'logger'
 require 'socket'
@@ -50,11 +50,11 @@ module LazopApiClient
         end
 
         def execute(request,accessToken = nil)
-            
+
             sys_params = Hash.new
             sys_params[:app_key] = @appkey
             sys_params[:partner_id] = 'lazop-sdk-ruby-20180426'
-        
+
             timestamp = request.timestamp
             if timestamp == nil
                 timestamp = (Time.now.to_f * 1000).to_i
@@ -95,7 +95,7 @@ module LazopApiClient
                     logApiError(fullUrl, '', '')
                 end
             end
-                
+
             return LazopApiClient::Response.new(obj['type'],obj['code'],obj['message'],obj['request_id'],obj)
         end
 
@@ -103,19 +103,19 @@ module LazopApiClient
 
             param_str = ''
 
-            if api_params != nil 
+            if api_params != nil
                 api_params.each do |k,v|
                     param_str += '&'
                     param_str += k.to_s()
                     param_str += '='
                     param_str += CGI.escape(v.to_s())
-                end    
+                end
             end
 
             res = JSON.parse(RestClient.get(url + param_str, header_params))
 
             return res
-                    
+
         end
 
         def setLogLevel(level)
@@ -123,7 +123,7 @@ module LazopApiClient
         end
 
         def url_encode(str)
-          return str.gsub!(/[^-_.!~*'()a-zA-Z\d;\/?:@&=+$,\[\]]/n) { |x| x = format("%%%x", x[0])}  
+          return str.gsub!(/[^-_.!~*'()a-zA-Z\d;\/?:@&=+$,\[\]]/n) { |x| x = format("%%%x", x[0])}
         end
 
         def logApiError requestUrl, code, message
@@ -137,8 +137,8 @@ module LazopApiClient
 
             if file_params != nil
                 file_params.each do |k,v|
-                    all_params[k] = File.open(v, "rb")  
-                end    
+                    all_params[k] = File.open(v, "rb")
+                end
             end
 
             res = JSON.parse(RestClient.post(url,all_params))
@@ -149,13 +149,13 @@ module LazopApiClient
             sort_arrays = nil
 
             if api_params != nil
-                sort_arrays = sys_params.merge(api_params).sort_by do |k,v|  
+                sort_arrays = sys_params.merge(api_params).sort_by do |k,v|
                     k.to_s()
                 end
             else
-                sort_arrays = sys_params.sort_by do |k,v|  
+                sort_arrays = sys_params.sort_by do |k,v|
                     k
-                end                
+                end
             end
 
             sign_str = ''
@@ -164,7 +164,7 @@ module LazopApiClient
                 sign_str += k.to_s()
                 sign_str += v.to_s()
             end
-            
+
             return OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha256'), @appSecret, sign_str).upcase
         end
 
@@ -178,7 +178,7 @@ module LazopApiClient
         end
 
         def get_full_url(url,params)
-            
+
             full_url = url
             param_str = ''
 
@@ -221,7 +221,7 @@ module LazopApiClient
             if key.kind_of? String
                 @api_params[key] = value
             else
-                raise 'api param key is not String'  
+                raise 'api param key is not String'
             end
         end
 
@@ -229,7 +229,7 @@ module LazopApiClient
             if key.kind_of? String
                 @header_params[key] = value
             else
-                raise 'http param key is not String'  
+                raise 'http param key is not String'
             end
         end
 
@@ -238,7 +238,7 @@ module LazopApiClient
             if (key.kind_of? String) && (file_path.kind_of? String)
                 @file_params[key] = file_path
             else
-                raise 'http param key is not String'  
+                raise 'http param key is not String'
             end
         end
 
@@ -274,7 +274,7 @@ module LazopApiClient
     class Response
 
         def initialize(type,code,message,r_id,body)
-            @type = type 
+            @type = type
             @code = code
             @message = message
             @body = body
@@ -300,7 +300,7 @@ module LazopApiClient
         end
 
         def body
-            # http response body, contains all fileds 
+            # http response body, contains all fileds
             @body
         end
 

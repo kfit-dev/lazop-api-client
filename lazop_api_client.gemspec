@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["xuteng.xt"]
   spec.email         = ["xuteng.xt@alibaba-inc.com"]
 
-  spec.summary       = "Rest API Client For Lazop Open Platform" 
-  spec.description   = "A simple rest API client For Lazop Open Platform for ruby"  
+  spec.summary       = "Rest API Client For Lazop Open Platform"
+  spec.description   = "A simple rest API client For Lazop Open Platform for ruby"
   spec.homepage      = "http://rubygems.org/gems/lazop_api_client"
   spec.license       = "MIT"
 
@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.16"
   spec.add_development_dependency "rake", "~> 10.0"
 
-  spec.add_runtime_dependency 'rest-client', '~> 2.0', '>= 2.0.2'
+  spec.add_runtime_dependency 'rest-client', '~> 1.8'
   spec.required_ruby_version = '>= 2.0.0'
 
 end
