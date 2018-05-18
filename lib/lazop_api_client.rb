@@ -12,7 +12,7 @@ require 'socket'
 
 $dir = ENV['HOME'] + '/logs/';
 if !File.directory?($dir)
-    Dir.mkdir dir
+    Dir.mkdir $dir
 end
 $logger = Logger.new($dir + 'lazopsdk.log.' + Time.now.strftime('%Y-%m-%d'))
 $logger.level = Logger::WARN
@@ -53,7 +53,7 @@ module LazopApiClient
             
             sys_params = Hash.new
             sys_params[:app_key] = @appkey
-            sys_params[:partner_id] = 'lazop-sdk-ruby-20180422'
+            sys_params[:partner_id] = 'lazop-sdk-ruby-20180426'
         
             timestamp = request.timestamp
             if timestamp == nil
