@@ -127,8 +127,7 @@ module LazopApiClient
         end
 
         def logApiError requestUrl, code, message
-            localIp = IPSocket.getaddress(Socket.gethostname)
-            $logger.error localIp + '^_^' + requestUrl + '^_^' + code + '^_^' + message
+            $logger.error '^_^' + requestUrl + '^_^' + code + '^_^' + message
         end
 
         def perform_post url, api_params,file_params,header_params
